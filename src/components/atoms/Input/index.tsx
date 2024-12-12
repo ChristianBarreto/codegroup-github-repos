@@ -6,13 +6,19 @@ export default function Input({
   label,
   helperText,
   type,
-  actionButton
+  actionButton,
+  value,
+  setValue,
+  handleActionClick,
 }: {
   id?: string
   label?: string,
   helperText?: string,
   type: string,
   actionButton?: string,
+  handleActionClick?: () => void
+  value: string,
+  setValue: (value: string) => void,
 }) {
   return (
     <>
@@ -23,8 +29,10 @@ export default function Input({
           id={id ? id : "input"}
           aria-describedby={id ? id : "input"}
           className=''
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
         />
-        {actionButton && <Button className='-2'>{actionButton}</Button>}
+        {actionButton && <Button onClick={handleActionClick}>{actionButton}</Button>}
       </div>
       
 
