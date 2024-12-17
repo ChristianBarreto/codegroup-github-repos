@@ -1,6 +1,7 @@
 export interface User {
   login: string,
   id: number
+  avatar_url: string
 }
 export type Users = User[];
 
@@ -10,3 +11,14 @@ export type UsersResp = {
   items: Users,
 }
 
+export interface Repo {
+  name: string,
+  id: number,
+  stargazers_count: number,
+  full_name: string,
+  description: string,
+  language: string,
+  html_url: string,
+}
+
+export type Repos = Repo[];

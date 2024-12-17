@@ -1,6 +1,7 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { User } from '../../../api/types';
+import { Link } from 'react-router-dom';
 
 export default function UserCard({
   user,
@@ -9,14 +10,15 @@ export default function UserCard({
 }) {
   return (
     <Card className='mb-4 shadow-sm'>
-      <Card.Img variant="top" src="holder.js/100px180" />
+      <Card.Img variant="top" src={user.avatar_url} />
       <Card.Body>
         <Card.Title>{user.login}</Card.Title>
         <Card.Text>
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
+          Click on button below to see more details.
         </Card.Text>
-        <Button variant="primary">Go somewhere</Button>
+        <Link to={`/users/${user.login}`}>
+          <Button variant="primary">View details</Button>
+        </Link>
       </Card.Body>
     </Card>
   );

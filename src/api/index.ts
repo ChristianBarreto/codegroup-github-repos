@@ -1,17 +1,12 @@
 import axios from 'axios';
-import { Users, UsersResp } from './types';
+import { Repo, Repos, User, Users, UsersResp } from './types';
 
-// Define the base URL for the GitHub API
 const GITHUB_API_BASE_URL = 'https://api.github.com';
 
-// Function to perform a GET request to the GitHub API
+console.log(process.env)
+
 const fetchGitHubData = (endpoint: string): Promise<any> => new Promise((resolve, reject) => {
-  axios.get(`${GITHUB_API_BASE_URL}${endpoint}`, {
-    headers: {
-      'Accept': 'application/vnd.github.v3+json',
-      'User-Agent': 'GitHub-API-Client',
-    },
-  }).then((res) => {
+  axios.get(`${GITHUB_API_BASE_URL}${endpoint}`).then((res) => {
     resolve(res);
 
   }).catch((err) => {
@@ -29,9 +24,26 @@ const fetchGitHubData = (endpoint: string): Promise<any> => new Promise((resolve
   
 })
 
-// Function to search for users
 export async function searchGitHubUsers(query: string): Promise<UsersResp> {
   const endpoint = `/search/users?q=${encodeURIComponent(query)}`;
+  const res = await fetchGitHubData(endpoint);
+  return (res.data)
+}
+
+export async function getGitHubUser(id: string): Promise<User> {
+  const endpoint = `/users/${id}`;
+  const res = await fetchGitHubData(endpoint);
+  return (res.data)
+}
+
+export async function getGitHubRepos(id: string): Promise<Repos> {
+  const endpoint = `/users/${id}/repos`;
+  const res = await fetchGitHubData(endpoint);
+  return (res.data)
+}
+
+export async function getGitHubRepo(id: string): Promise<Repo> {
+  const endpoint = `/repos/${id}`;
   const res = await fetchGitHubData(endpoint);
   return (res.data)
 }
